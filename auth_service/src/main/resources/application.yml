@@ -1,0 +1,13 @@
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: auth_service
+  
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/auth_db
+      database: auth_db
+

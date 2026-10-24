@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # 1. MongoDB Database - Anni services ki idi kavali
+  mongodb:
+    image: mongo:latest
+    container_name: smart_bank_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - bank-network
+    restart: always
+
+  # 2. Mongo-Express - Database ni browser lo chudadaniki (Optional but useful)
+  mongo-express:
+    image: mongo-express:latest
+    container_name: smart_bank_mongo_express
+    ports:
+      - "8084:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongodb:27017/
+      ME_CONFIG_BASICAUTH: "false"
+    depends_on:
+      - mongodb
+    networks:
+      - bank-network
+    restart: always
+
+volumes:
+  mongodata:
+    driver: local
+
+networks:
+  bank-network:
+    driver: bridge
